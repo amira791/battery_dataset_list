@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Battery SOH/Capacity Estimation Datasets</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #0f172a; color: #e2e8f0; padding: 20px; }
+  h1 { text-align: center; color: #38bdf8; margin-bottom: 6px; font-size: 1.5rem; }
+  .subtitle { text-align: center; color: #94a3b8; margin-bottom: 20px; font-size: 0.85rem; }
+  .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; justify-content: center; }
+  .filters select, .filters input { padding: 6px 10px; border-radius: 6px; border: 1px solid #334155; background: #1e293b; color: #e2e8f0; font-size: 0.82rem; }
+  .filters input { width: 220px; }
+  .count { text-align: center; color: #94a3b8; font-size: 0.8rem; margin-bottom: 10px; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+  thead tr { background: #1e3a5f; color: #38bdf8; }
+  th { padding: 10px 8px; text-align: left; font-weight: 600; white-space: nowrap; border-bottom: 2px solid #38bdf8; }
+  tbody tr { border-bottom: 1px solid #1e293b; transition: background 0.15s; }
+  tbody tr:hover { background: #1e2d40; }
+  tbody tr:nth-child(even) { background: #131f2e; }
+  tbody tr:nth-child(even):hover { background: #1e2d40; }
+  td { padding: 9px 8px; vertical-align: top; }
+  td:first-child { color: #94a3b8; font-weight: bold; white-space: nowrap; }
+  td:nth-child(2) { font-weight: 500; color: #f1f5f9; min-width: 220px; }
+  .link-cell a { color: #34d399; text-decoration: none; font-weight: 500; }
+  .link-cell a:hover { text-decoration: underline; }
+  .na { color: #f87171; font-style: italic; }
+  .unavail { color: #fb923c; font-style: italic; }
+  .noexist { color: #f43f5e; font-style: italic; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 600; white-space: nowrap; }
+  .badge-known { background: #14532d; color: #4ade80; }
+  .badge-unknown { background: #431407; color: #fb923c; }
+  .badge-partial { background: #1e3a5f; color: #60a5fa; }
+  .inst-cell { min-width: 200px; color: #cbd5e1; }
+  .country-cell { white-space: nowrap; }
+  .note-cell { color: #94a3b8; font-size: 0.73rem; min-width: 160px; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-bottom: 16px; font-size: 0.75rem; }
+  .legend span { display: flex; align-items: center; gap: 5px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+</style>
+</head>
+<body>
+<h1>🔋 Battery SOH / Capacity Estimation Datasets</h1>
+<p class="subtitle">55 datasets — Direct download links, institutions, countries and notability status</p>
+
+<div class="legend">
+  <span><span class="badge badge-known">⭐ Well-Known</span> Widely cited, commonly used in literature</span>
+  <span><span class="badge badge-partial">◎ Moderate</span> Known in specialized community</span>
+  <span><span class="badge badge-unknown">○ Less-Known</span> Niche, unpublished or emerging</span>
+</div>
+
+<div class="filters">
+  <input type="text" id="search" placeholder="🔍 Search dataset name..." oninput="filterTable()">
+  <select id="filterCountry" onchange="filterTable()">
+    <option value="">All Countries</option>
+    <option value="USA">USA</option>
+    <option value="UK">UK</option>
+    <option value="Germany">Germany</option>
+    <option value="China">China</option>
+    <option value="Multiple">Multiple</option>
+  </select>
+  <select id="filterKnown" onchange="filterTable()">
+    <option value="">All Notability</option>
+    <option value="Well-Known">Well-Known</option>
+    <option value="Moderate">Moderate</option>
+    <option value="Less-Known">Less-Known</option>
+  </select>
+  <select id="filterLink" onchange="filterTable()">
+    <option value="">All Link Status</option>
+    <option value="available">Link Available</option>
+    <option value="unavailable">Not Available</option>
+    <option value="noexist">Does Not Exist</option>
+  </select>
+</div>
+<p class="count" id="rowCount"></p>
+
+<div class="table-wrap">
+<table id="mainTable">
+<thead>
+<tr>
+  <th>#</th>
+  <th>Dataset Name</th>
+  <th>Download Link</th>
+  <th>Institution / Research Group</th>
+  <th>Country</th>
+  <th>Notability</th>
+  <th>Notes</th>
+</tr>
+</thead>
+<tbody>
+
+<tr data-country="USA" data-known="Well-Known" data-link="available">
+  <td>1</td>
+  <td>NASA PCoE Battery Dataset</td>
+  <td class="link-cell"><a href="https://phm-datasets.s3.amazonaws.com/NASA/5.+Battery+Data+Set.zip" target="_blank">Direct ZIP ↗</a><br><small><a href="https://data.nasa.gov/dataset/li-ion-battery-aging-datasets" target="_blank">NASA Portal ↗</a></small></td>
+  <td class="inst-cell">NASA Ames Prognostics Center of Excellence (PCoE)</td>
+  <td class="country-cell">🇺🇸 USA</td>
+  <td><span class="badge badge-known">⭐ Well-Known</span></td>
+  <td class="note-cell">18650 Li-ion cells; cycling at multiple temperatures; charge/discharge/EIS; 2Ah nominal</td>
+</tr>
+
+<tr data-country="USA" data-known="Well-Known" data-link="available">
+  <td>2</td>
+  <td>NASA Randomized Battery Dataset</td>
+  <td class="link-cell"><a href="https://data.nasa.gov/dataset/randomized-battery-usage-1-random-walk" target="_blank">NASA Portal ↗</a><br><small><a href="https://zenodo.org/records/15277374" target="_blank">Zenodo ↗</a></small></td>
+  <td class="inst-cell">NASA Ames Prognostics Center of Excellence (PCoE)</td>
+  <td class="country-cell">🇺🇸 USA</td>
+  <td><span class="badge badge-known">⭐ Well-Known</span></td>
+  <td class="note-cell">Random-walk current profiles; 18650 cells; reference cycles every ~5 days</td>
+</tr>
+
+<tr data-country="USA" data-known="Well-Known" data-link="available">
+  <td>3</td>
+  <td>CALCE Battery Dataset</td>
+  <td class="link-cell"><a href="https://calce.umd.edu/data" target="_blank">CALCE Website ↗</a></td>
+  <td class="inst-cell">Center for Advanced Life Cycle Engineering (CALCE), University of Maryland</td>
+  <td class="country-cell">🇺🇸 USA</td>
+  <td><span class="badge badge-known">⭐ Well-Known</span></td>
+  <td class="note-cell">LCO, LFP, NMC cells; cylindrical/pouch/prismatic; cycling, storage, drive profiles</td>
+</tr>
+
+<tr data-country="Multiple" data-known="Well-Known" data-link="available">
+  <td>4</td>
+  <td>MIT-Stanford-TRI Fast-Charging Dataset (124 cells)</td>
+  <td class="link-cell"><a href="https://data.matr.io/1/projects/5c48dd2bc625d700019f3204" target="_blank">data.matr.io ↗</a></td>
+  <td class="inst-cell">MIT, Stanford University &amp; Toyota Research Institute (TRI)</td>
+  <td class="country-cell">🇺🇸 USA (Multi)</td>
+  <td><span class="badge badge-known">⭐ Well-Known</span></td>
+  <td class="note-cell">Severson et al. 2019, Nature Energy; 124 LFP/graphite 18650 cells; fast charging</td>
+</tr>
+
+<tr data-country="Multiple" data-known="Well-Known" data-link="available">
+  <td>5</td>
+  <td>MIT-Stanford-TRI Self-Collected Fast Charging Dataset (233 cells)</td>
+  <td class="link-cell"><a href="https://data.matr.io/1/projects/5d80e633f405260001c0b60a" target="_blank">data.matr.io ↗</a></td>
+  <td class="inst-cell">MIT, Stanford University &amp; Toyota Research Institute (TRI)</td>
+  <td class="country-cell">🇺🇸 USA (Multi)</td>
+  <td><span class="badge badge-known">⭐ Well-Known</span></td>
+  <td class="note-cell">Attia et al. 2020, Nature; 233 LFP/graphite cells; closed-loop fast-charge optimization</td>
+</tr>
+
+<tr data-country="Unknown" data-known="Less-Known" data-link="unavailable">
+  <td>6</td>
+  <td>Custom DST Dataset (Secondary Validation Dataset)</td>
+  <td class="link-cell"><span class="unavail">Not Available (private/lab data)</span></td>
+  <td class="inst-cell">Unknown / Not publicly documented</td>
+  <td class="country-cell">❓ Unknown</td>
+  <td><span class="badge badge-unknown">○ Less-Known</span></td>
+  <td class="note-cell">DST (Dynamic Stress Test) profile; cited in various SOH papers as secondary validation</td>
+</tr>
+
+<tr data-country="China" data-known="Less-Known" data-link="unavailable">
+  <td>7</td>
+  <td>Self-Collected 18650 Li-Ion Battery Dataset (Han et al., 2025)</td>
+  <td class="link-cell"><span class="unavail">Not Available (paper-associated; check journal supplementary)</span></td>
+  <td class="inst-cell">Han et al. — Specific affiliation not widely documented; likely Chinese university (2025 publication)</td>
+  <td class="country-cell">🇨🇳 China (likely)</td>
+  <td><span class="badge badge-unknown">○ Less-Known</span></td>
+  <td class="note-cell">Very recent; 18650 cells; may not yet be archived in public repository</td>
+</tr>
+
+<tr data-country="Multiple" data-known="Well-Known" data-link="available">
+  <td>8</td>
+  <td>TRI-MIT-Stanford NCA Dataset</td>
+  <td class="link-cell"><a href="https://data.matr.io/1/" target="_blank">data.matr.io ↗</a></td>
+  <td class="inst-cell">Toyota Research Institute (TRI), MIT, Stanford University</td>
+  <td class="country-cell">🇺🇸 USA (Multi)</td>
+  <td><span class="badge badge-known">⭐ Well-Known</span></td>
+  <td class="note-cell">Part of the matr.io battery data ecosystem; NCA chemistry cycling data</td>
+</tr>
+
+<tr data-country="UK" data-known="Well-Known" data-link="available">
+  <td>9</td>
+  <td>Oxford Battery Degradation Dataset 1</td>
+  <td class="link-cell"><a href="https://ora.ox.ac.uk/objects/uuid:03ba4b01-cfed-46d3-9b1a-7d4a7bdf6fac" target="_blank">ORA Oxford ↗</a></td>
+  <td class="inst-cell">Battery Intelligence Lab, University of Oxford (Howey &amp; Birkl)</td>
+  <td class="country-cell">🇬🇧 UK</td>
+  <td><span class="badge badge-known">⭐ Well-Known</span></td>
+  <td class="note-cell">8 LCO pouch cells; drive cycle discharge (Artemis); tested at 40°C; Birkl PhD 2017</td>
+</tr>
+
+<tr data-country="UK" data-known="Well-Known" data-link="available">
+  <td>10</td>
+  <td>Oxford Path-Dependent Degradation Dataset</td>
+  <td class="link-cell"><a href="https://ora.ox.ac.uk/objects/uuid:de62b5d2-6154-426d-bcbb-30253ddb7d1e" target="_blank">ORA Oxford (Part 1) ↗</a><br><small><a href="https://ora.ox.ac.uk/objects/uuid:78f66fa8-deb9-468a-86f3-63983a7391a9" target="_blank">Part 3 ↗</a></small></td>
+  <td class="inst-cell">Battery Intelligence Lab, University of Oxford (Raj &amp; Howey)</td>
+  <td class="country-cell">🇬🇧 UK</td>
+  <td><span class="badge badge-known">⭐ Well-Known</span></td>
+  <td class="note-cell">NCA 18650 cells; combined calendar + cyclic aging in varying orders; path-dependence study</td>
+</tr>
+
+<tr data-country="UK" data-known="Well-Known" data-link="available">
+  <td>11</td>
+  <td>Oxford Energy Trading Battery Dataset</td>
+  <td class="link-cell"><a href="https://ora.ox.ac.uk/objects/uuid:9aae61af-2949-49f1-8ad5-6aea448979e5" target="_blank">ORA Oxford ↗</a></td>
+  <td class="inst-cell">Battery Intelligence Lab, University of Oxford (Reniers, Mulder &amp; Howey)</td>
+  <td class="country-cell">🇬🇧 UK</td>
+  <td><span class="badge badge-known">⭐ Well-Known</span></td>
+  <td class="note-cell">6 Li-ion cells; 1-year real grid trading profiles; monthly capacity checks; 2020</td>
+</tr>
+
+<tr data-country="USA" data-known="Moderate" data-link="available">
+  <td>12</td>
+  <td>HNEI Dataset</td>
+  <td class="link-cell"><a href="https://www.batteryarchive.org/snl_study.html" target="_blank">BatteryArchive ↗</a><br><small><a href="https://doi.org/10.1016/j.xcrp.2023.101754" target="_blank">Relaxation Dataset (2024) ↗</a></small></td>
+  <td class="inst-cell">Hawaii Natural Energy Institute (HNEI), University of Hawaii at Mānoa</td>
+  <td class="country-cell">🇺🇸 USA</td>
+  <td><span class="badge badge-partial">◎ Moderate</span></td>
+  <td class="note-cell">NMC-LCO 18650 cells; cell-to-cell variability; also publishes relaxation dataset (2024)</td>
+</tr>
+
+<tr data-country="USA" data-known="Well-Known" data-link="available">
+  <td>13</td>
+  <td>SNL Dataset (Sandia National Labs)</td>
+  <td class="link-cell"><a href="https://www.batteryarchive.org/snl_study.html" target="_blank">BatteryArchive ↗</a><br><small><a href="https://www.sandia.gov/ess-ssl/data-repository/" target="_blank">SNL Repository ↗</a></small></td>
+  <td class="inst-cell">Sandia National Laboratories (SNL), DOE</td>
+  <td class="country-cell">🇺🇸 USA</td>
+  <td><span class="badge badge-known">⭐ Well-Known</span></td>
+  <td class="note-cell">NCA, NMC, LFP cells; multi-temperature/DOD/rate cycling; also hosts BatteryArchive.org</td>
+</tr>
+
+<tr data-country="USA" data-known="Moderate" data-link="available">
+  <td>14</td>
+  <td>Stanford Galvanostatic Discharge Dataset</td>
+  <td class="link-cell"><a href="https://data.matr.io/1/" target="_blank">data.matr.io ↗</a></td>
+  <td class="inst-cell">Chueh Group, Stanford University (Materials Science &amp; Engineering)</td>
+  <td class="country-cell">🇺🇸 USA</td>
+  <td><span class="badge badge-partial">◎ Moderate</span></td>
+  <td class="note-cell">Galvanostatic cycling data; part of the broader TRI-Stanford battery data ecosystem</td>
+</tr>
+
+<tr data-country="USA" data-known="Moderate" data-link="available">
+  <td>15</td>
+  <td>Stanford Second-Life Battery Dataset</td>
+  <td class="link-cell"><a href="https://zenodo.org/records/7374915" target="_blank">Zenodo ↗</a></td>
+  <td class="inst-cell">Stanford Energy Control Lab (Chueh / Braatz groups), Stanford University</td>
+  <td class="country-cell">🇺🇸 USA</td>
+  <td><span class="badge badge-partial">◎ Moderate</span></td>
+  <td class="note-cell">NMC second-life cells; residential and commercial synthetic duty cycles</td>
+</tr>
+
+<tr data-country="USA" data-known="Moderate" data-link="available">
+  <td>16</td>
+  <td>Stanford Real-Driving Dataset (UDDS)</td>
+  <td class="link-cell"><a href="https://data.matr.io/1/" target="_blank">data.matr.io ↗</a></td>
+  <td class="inst-cell">Stanford University (Chueh Group)</td>
+  <td class="country-cell">🇺🇸 USA</td>
+  <td><span class="badge badge-partial">◎ Moderate</span></td>
+  <td class="note-cell">UDDS (Urban Dynamometer Driving Schedule) current profiles applied to Li-ion cells</td>
+</tr>
+
+<tr data-country="USA" data-known="Moderate" data-link="available">
+  <td>17</td>
+  <td>Stanford High-Power NMC Dataset</td>
+  <td class="link-cell"><a href="https://data.matr.io/1/" target="_blank">data.matr.io ↗</a></td>
+  <td class="inst-cell">Stanford University (Chueh Group) / TRI</td>
+  <td class="country-cell">🇺🇸 USA</td>
+  <td><span class="badge badge-partial">◎ Moderate</span></td>
+  <td class="note-cell">High-rate NMC cell cycling; part of matr.io data ecosystem</td>
+</tr>
+
+<tr data-country="Germany" data-known="Moderate" data-link="available">
+  <td>18</td>
+  <td>RWTH Aachen Dataset (Li et al. 2021)</td>
+  <td class="link-cell"><a href="https://www.carl.rwth-aachen.de/cms/carl/forschung/open-source-tools-data/~ricdl/data/?lidx=1" target="_blank">CARL RWTH ↗</a></td>
+  <td class="inst-cell">ISEA / CARL, RWTH Aachen University</td>
+  <td class="country-cell">🇩🇪 Germany</td>
+  <td><span class="badge badge-partial">◎ Moderate</span></td>
+  <td class="note-cell">48 NMC/graphite Sanyo/Panasonic UR18650E cells; cyclic aging; BOL and periodic RPT tests</td>
+</tr>
+
+<tr data-country="Germany" data-known="Moderate" data-link="available">
+  <td>19</td>
+  <td>RWTH Home Storage Systems Dataset</td>
+  <td class="link-cell"><a href="https://doi.org/10.18154/RWTH-2024-04895" target="_blank">RWTH Publications ↗</a></td>
+  <td class="inst-cell">ISEA / CARL, RWTH Aachen University (Figgener et al.)</td>
+  <td class="country-cell">🇩🇪 Germany</td>
+  <td><span class="badge badge-partial">◎ Moderate</span></td>
+  <td class="note-cell">21 residential PV+storage systems; 8 years of field data; 14 billion data points; 146 GB</td>
+</tr>
+
+<tr data-country="Germany" data-known="Moderate" data-link="available">
+  <td>20</td>
+  <td>RWTH Drive Cycle Aging Dataset</td>
+  <td class="link-cell"><a href="https://www.carl.rwth-aachen.de/cms/carl/forschung/open-source-tools-data/~ricdl/data/?lidx=1" target="_blank">CARL RWTH ↗</a></td>
+  <td class="inst-cell">ISEA / CARL, RWTH Aachen University</td>
+  <td class="country-cell">🇩🇪 Germany</td>
+  <td><span class="badge badge-partial">◎ Moderate</span></td>
+  <td class="note-cell">NCA 18650 cells aged with drive cycle profiles; timeseries current/voltage/temperature</td>
+</tr>
+
+<tr data-country="China" data-known="Moderate" data-link="available">
+  <td>21</td>
+  <td>Beijing Institute of Technology Dataset #1</td>
+  <td class="link-cell"><a href="https://www.batteryarchive.org/" target="_blank">BatteryArchive ↗</a></td>
+  <td class="inst-cell">Beijing Institute of Technology (BIT), School of Mechanical Engineering</td>
+  <td class="country-cell">🇨🇳 China</td>
+  <td><span class="badge badge-partial">◎ Moderate</span></td>
+  <td class="note-cell">Multiple cell types; cycling at various conditions; SOH/RUL studies</td>
+</tr>
+
+<tr data-country="China" data-known="Moderate" data-link="available">
+  <td>22</td>
+  <td>BIT Dataset #2 (NMC)</td>
+  <td class="link-cell"><a href="https://www.batteryarchive.org/" target="_blank">BatteryArchive ↗</a></td>
+  <td class="inst-cell">Beijing Institute of Technology (BIT)</td>
+  <td class="country-cell">🇨🇳 China</td>
+  <td><span class="badge badge-partial">◎ Moderate</span></td>
+  <td class="note-cell">NMC cells; capacity estimation and degradation modeling</td>
+</tr>
+
+<tr data-country="China" data-known="Moderate" data-link="available">
+  <td>23</td>
+  <td>BIT Dataset #3 (LFP)</td>
+  <td class="link-cell"><a href="https://www.batteryarchive.org/" target="_blank">BatteryArchive ↗</a></td>
+  <td class="inst-cell">Beijing Institute of Technology (BIT)</td>
+  <td class="country-cell">🇨🇳 China</td>
+  <td><span class="badge badge-partial">◎ Moderate</span></td>
+  <td class="note-cell">LFP cells; cycling and state estimation datasets</td>
+</tr>
+
+<tr data-country="China" data-known="Moderate" data-link="available">
+  <td>24</td>
+  <td>Ma et al. LFP Multi-Stage Discharge Dataset</td>
+  <td class="link-cell"><a href="https://www.batteryarchive.org/" target="_blank">BatteryArchive ↗</a></td>
+  <td class="inst-cell">Ma et al. — likely Chinese academic institution (Tongji or BIT)</td>
+  <td class="country-cell">🇨🇳 China (likely)</td>
+  <td><span class="badge badge-partial">◎ Moderate</span></td>
+  <td class="note-cell">LFP cells; multi-stage discharge profile; used in voltage relaxation / SOH studies (Ma et al. 2022)</td>
+</tr>
+
+<tr data-country="USA" data-known="Well-Known" data-link="available">
+  <td>25</td>
+  <td>Preger et al. NMC Dataset</td>
+  <td class="link-cell"><a href="https://www.batteryarchive.org/snl_study.html" target="_blank">BatteryArchive ↗</a></td>
+  <td class="inst-cell">Sandia National Laboratories (Preger et al.)</td>
+  <td class="country-cell">🇺🇸 USA</td>
+  <td><span class="badge badge-known">⭐ Well-Known</span></td>
+  <td class="note-cell">86 NCA/NMC/LFP 18650 cells; long-term degradation; various temperatures, DOD, rates</td>
+</tr>
+
+<tr data-country="Multiple" data-known="Well-Known" data-link="available">
+  <td>26</td>
+  <td>Severson et al. Fast-Charging Dataset</td>
+  <td class="link-cell"><a href="https://data.matr.io/1/projects/5c48dd2bc625d700019f3204" target="_blank">data.matr.io ↗</a></td>
+  <td class="inst-cell">MIT, Stanford University &amp; Toyota Research Institute (TRI)</td>
+  <td class="country-cell">🇺🇸 USA (Multi)</td>
+  <td><span class="badge badge-known">⭐ Well-Known</span></td>
+  <td class="note-cell">Same as #4; Severson et al. Nature Energy 2019; 124 LFP cells; the most cited battery ML dataset</td>
+</tr>
+
+<tr data-country="USA" data-known="Moderate" data-link="available">
+  <td>27</td>
+  <td>UL-Purdue Battery Dataset</td>
+  <td class="link-cell"><a href="https://www.batteryarchive.org/" target="_blank">BatteryArchive ↗</a></td>
+  <td class="inst-cell">UL Research Institutes &amp; Purdue University</td>
+  <td class="country-cell">🇺🇸 USA</td>
+  <td><span class="badge badge-partial">◎ Moderate</span></td>
+  <td class="note-cell">238 NMC pouch cells; 63 aging conditions; varying C-rates, DOD; Juarez-Robles et al. 2020</td>
+</tr>
+
+<tr data-country="USA" data-known="Moderate" data-link="available">
+  <td>28</td>
+  <td>University of Michigan Battery Datasets</td>
+  <td class="link-cell"><a href="https://www.batteryarchive.org/" target="_blank">BatteryArchive ↗</a></td>
+  <td class="inst-cell">Battery Control Group, University of Michigan (Mohtat et al.)</td>
+  <td class="country-cell">🇺🇸 USA</td>
+  <td><span class="badge badge-partial">◎ Moderate</span></td>
+  <td class="note-cell">NMC cells; cell expansion, formation protocols; Mohtat et al. 2021; Weng et al. 2021</td>
+</tr>
+
+<tr data-country="USA" data-known="Moderate" data-link="available">
+  <td>29</td>
+  <td>Oak Ridge Mechanical Abuse Dataset</td>
+  <td class="link-cell"><a href="https://www.batteryarchive.org/" target="_blank">BatteryArchive ↗</a></td>
+  <td class="inst-cell">Oak Ridge National Laboratory (ORNL)</td>
+  <td class="country-cell">🇺🇸 USA</td>
+  <td><span class="badge badge-partial">◎ Moderate</span></td>
+  <td class="note-cell">54 pouch cells; NMC/LCO/LFP/NMC-LMO; indentation/abuse tests; thermal runaway analysis</td>
+</tr>
+
+<tr data-country="USA" data-known="Well-Known" data-link="available">
+  <td>30</td>
+  <td>BatteryArchive.org (Meta-Repository)</td>
+  <td class="link-cell"><a href="https://www.batteryarchive.org/" target="_blank">batteryarchive.org ↗</a></td>
+  <td class="inst-cell">Sandia National Laboratories (SNL), DOE Office of Electricity</td>
+  <td class="country-cell">🇺🇸 USA</td>
+  <td><span class="badge badge-known">⭐ Well-Known</span></td>
+  <td class="note-cell">Multi-institution repository; standardized CSV format; hosts SNL, HNEI, Oxford, UM, CALCE data</td>
+</tr>
+
+<tr data-country="Unknown" data-known="Less-Known" data-link="unavailable">
+  <td>31</td>
+  <td>EV Fleet Dataset (300 Vehicles)</td>
+  <td class="link-cell"><span class="unavail">Not Available (proprietary fleet data)</span></td>
+  <td class="inst-cell">Unknown / Not publicly documented</td>
+  <td class="country-cell">❓ Unknown</td>
+  <td><span class="badge badge-unknown">○ Less-Known</span></td>
+  <td class="note-cell">Referenced in capacity degradation literature; specific source and access not confirmed</td>
+</tr>
+
+<tr data-country="China" data-known="Less-Known" data-link="unavailable">
+  <td>32</td>
+  <td>Guangzhou EV Operation Dataset</td>
+  <td class="link-cell"><span class="unavail">Not Available (likely government/industry data)</span></td>
+  <td class="inst-cell">Likely affiliated with Guangzhou municipal EV program or local OEM</td>
+  <td class="country-cell">🇨🇳 China</td>
+  <td><span class="badge badge-unknown">○ Less-Known</span></td>
+  <td class="note-cell">Real-world EV operational data from Guangzhou; BMS logs; SOH estimation papers</td>
+</tr>
+
+<tr data-country="Unknown" data-known="Less-Known" data-link="unavailable">
+  <td>33</td>
+  <td>NDANEV Dataset</td>
+  <td class="link-cell"><span class="unavail">Not Available</span></td>
+  <td class="inst-cell">Likely National Data Alliance for New Energy Vehicles (China)</td>
+  <td class="country-cell">🇨🇳 China (likely)</td>
+  <td><span class="badge badge-unknown">○ Less-Known</span></td>
+  <td class="note-cell">New energy vehicle national data platform; access restricted to domestic partners</td>
+</tr>
+
+<tr data-country="China" data-known="Less-Known" data-link="unavailable">
+  <td>34</td>
+  <td>Hefei EV Bus BMS Dataset</td>
+  <td class="link-cell"><span class="unavail">Not Available (proprietary BMS/fleet data)</span></td>
+  <td class="inst-cell">Likely University of Science and Technology of China (USTC) or local OEM, Hefei</td>
+  <td class="country-cell">🇨🇳 China</td>
+  <td><span class="badge badge-unknown">○ Less-Known</span></td>
+  <td class="note-cell">Electric bus BMS data; real-world driving; capacity fade estimation</td>
+</tr>
+
+<tr data-country="Unknown" data-known="Less-Known" data-link="unavailable">
+  <td>35</td>
+  <td>EV Capacity Degradation Dataset (20 Vehicles)</td>
+  <td class="link-cell"><span class="unavail">Not Available</span></td>
+  <td class="inst-cell">Unknown / Not publicly documented</td>
+  <td class="country-cell">❓ Unknown</td>
+  <td><span class="badge badge-unknown">○ Less-Known</span></td>
+  <td class="note-cell">Small-scale EV fleet; capacity degradation tracking; cited in SOH estimation works</td>
+</tr>
+
+<tr data-country="Unknown" data-known="Less-Known" data-link="unavailable">
+  <td>36</td>
+  <td>EV Fleet Dataset (464 Vehicles)</td>
+  <td class="link-cell"><span class="unavail">Not Available (proprietary fleet data)</span></td>
+  <td class="inst-cell">Unknown / Not publicly documented</td>
+  <td class="country-cell">❓ Unknown</td>
+  <td><span class="badge badge-unknown">○ Less-Known</span></td>
+  <td class="note-cell">Large-scale EV fleet; BMS data; SOH estimation studies</td>
+</tr>
+
+<tr data-country="USA" data-known="Moderate" data-link="available">
+  <td>37</td>
+  <td>Idaho National Laboratory AVTA Dataset</td>
+  <td class="link-cell"><a href="https://www.energy.gov/eere/vehicles/avta-battery-testing-data" target="_blank">DOE/VTO Portal ↗</a><br><small><a href="https://www.osti.gov/biblio/1863084" target="_blank">OSTI ↗</a></small></td>
+  <td class="inst-cell">Idaho National Laboratory (INL), Advanced Vehicle Testing Activity (AVTA)</td>
+  <td class="country-cell">🇺🇸 USA</td>
+  <td><span class="badge badge-partial">◎ Moderate</span></td>
+  <td class="note-cell">Real-world EV battery pack data; 21 vehicle models; capacity tests every 1,500–2,000 miles</td>
+</tr>
+
+<tr data-country="Germany" data-known="Moderate" data-link="available">
+  <td>38</td>
+  <td>M5BAT Large-Scale Storage Dataset</td>
+  <td class="link-cell"><a href="https://publications.rwth-aachen.de/record/985923" target="_blank">RWTH Publications ↗</a><br><small><a href="https://publications.rwth-aachen.de/record/985923/files/M5BAT_04-2023_RAW.zip" target="_blank">Direct ZIP ↗</a></small></td>
+  <td class="inst-cell">ISEA / PGS, RWTH Aachen University (E.ON Energy Research Center)</td>
+  <td class="country-cell">🇩🇪 Germany</td>
+  <td><span class="badge badge-partial">◎ Moderate</span></td>
+  <td class="note-cell">5 MW/7.5 MWh hybrid BESS; 10 battery units; 5 technologies; grid frequency containment reserve</td>
+</tr>
+
+<tr data-country="Unknown" data-known="Less-Known" data-link="unavailable">
+  <td>39</td>
+  <td>Grid Storage Battery Dataset</td>
+  <td class="link-cell"><span class="unavail">Not Available (likely internal/proprietary)</span></td>
+  <td class="inst-cell">Unknown / Not publicly documented</td>
+  <td class="country-cell">❓ Unknown</td>
+  <td><span class="badge badge-unknown">○ Less-Known</span></td>
+  <td class="note-cell">Stationary grid storage cycling data; referenced in energy storage SOH papers</td>
+</tr>
+
+<tr data-country="China" data-known="Well-Known" data-link="available">
+  <td>40</td>
+  <td>XJTU Dataset (Xi'an Jiaotong University)</td>
+  <td class="link-cell"><a href="https://zenodo.org/records/10963339" target="_blank">Zenodo ↗</a></td>
+  <td class="inst-cell">MOE KLINNS Lab, Xi'an Jiaotong University (Wang, Zhao et al.)</td>
+  <td class="country-cell">🇨🇳 China</td>
+  <td><span class="badge badge-known">⭐ Well-Known</span></td>
+  <td class="note-cell">55 NCM 18650 cells; 6 charging/discharging strategies; 1Hz sampling; Wang et al. Nat. Commun. 2024</td>
+</tr>
+
+<tr data-country="China" data-known="Moderate" data-link="available">
+  <td>41</td>
+  <td>SWJTU Dataset (Southwest Jiaotong University)</td>
+  <td class="link-cell"><a href="https://zenodo.org/record/6405084" target="_blank">Zenodo (TJU) ↗</a></td>
+  <td class="inst-cell">Southwest Jiaotong University (SWJTU) — Note: sometimes confused with TJU (Tongji/Tianjin)</td>
+  <td class="country-cell">🇨🇳 China</td>
+  <td><span class="badge badge-partial">◎ Moderate</span></td>
+  <td class="note-cell">NCM cells; multi-temperature aging; often referenced alongside XJTU dataset</td>
+</tr>
+
+<tr data-country="Unknown" data-known="Less-Known" data-link="unavailable">
+  <td>42</td>
+  <td>BEXEL Battery Dataset</td>
+  <td class="link-cell"><span class="unavail">Not Available</span></td>
+  <td class="inst-cell">Not publicly documented — "BEXEL" not recognized as a standard battery dataset name</td>
+  <td class="country-cell">❓ Unknown</td>
+  <td><span class="badge badge-unknown">○ Less-Known</span></td>
+  <td class="note-cell">May be a local/proprietary dataset or alternate name; not found in open literature</td>
+</tr>
+
+<tr data-country="China" data-known="Moderate" data-link="available">
+  <td>43</td>
+  <td>Tongji NCA Dataset</td>
+  <td class="link-cell"><a href="https://zenodo.org/record/6405084" target="_blank">Zenodo (TJU) ↗</a></td>
+  <td class="inst-cell">Tongji University (TJU), Shanghai — Zhu et al.</td>
+  <td class="country-cell">🇨🇳 China</td>
+  <td><span class="badge badge-partial">◎ Moderate</span></td>
+  <td class="note-cell">NCA cells; voltage relaxation data; Zhu et al. 2022 Nature Communications; capacity estimation</td>
+</tr>
+
+<tr data-country="China" data-known="Moderate" data-link="available">
+  <td>44</td>
+  <td>Zhu et al. Multi-Chemistry Dataset</td>
+  <td class="link-cell"><a href="https://zenodo.org/record/6405084" target="_blank">Zenodo ↗</a></td>
+  <td class="inst-cell">Tongji University (TJU) — Zhu, Wang, Huang et al.</td>
+  <td class="country-cell">🇨🇳 China</td>
+  <td><span class="badge badge-partial">◎ Moderate</span></td>
+  <td class="note-cell">Zhu et al. 2022 Nat. Commun.; data-driven capacity estimation from voltage relaxation; multiple chemistries</td>
+</tr>
+
+<tr data-country="Unknown" data-known="Less-Known" data-link="unavailable">
+  <td>45</td>
+  <td>LTO Battery Dataset</td>
+  <td class="link-cell"><span class="unavail">Not Available (no standard public repository identified)</span></td>
+  <td class="inst-cell">Multiple possible sources (RWTH M5BAT includes LTO unit; no dedicated open dataset confirmed)</td>
+  <td class="country-cell">❓ Unknown</td>
+  <td><span class="badge badge-unknown">○ Less-Known</span></td>
+  <td class="note-cell">Lithium Titanate Oxide cells; high cycle life; specific dedicated open dataset not confirmed</td>
+</tr>
+
+<tr data-country="Multiple" data-known="Moderate" data-link="available">
+  <td>46</td>
+  <td>Calendar Aging Dataset (8 Cell Types)</td>
+  <td class="link-cell"><a href="https://zenodo.org/records/10637534" target="_blank">Zenodo (example) ↗</a></td>
+  <td class="inst-cell">Multiple institutions — likely includes Oxford, RWTH, or similar; specific paper context needed</td>
+  <td class="country-cell">🌍 Multiple</td>
+  <td><span class="badge badge-partial">◎ Moderate</span></td>
+  <td class="note-cell">Calendar aging at various T and SOC for 8 cell types; NMC, LFP, NCA chemistries</td>
+</tr>
+
+<tr data-country="Unknown" data-known="Less-Known" data-link="unavailable">
+  <td>47</td>
+  <td>Sodium-Ion Battery Dataset</td>
+  <td class="link-cell"><span class="unavail">Not Available (very limited public datasets for Na-ion exist)</span></td>
+  <td class="inst-cell">Likely included in BatteryLife (HKUST-GZ); specific standalone repository not confirmed</td>
+  <td class="country-cell">❓ Unknown</td>
+  <td><span class="badge badge-unknown">○ Less-Known</span></td>
+  <td class="note-cell">Emerging chemistry; limited open-access aging/SOH datasets available as of 2025</td>
+</tr>
+
+<tr data-country="Unknown" data-known="Less-Known" data-link="unavailable">
+  <td>48</td>
+  <td>Silicon-Doped Graphite Anode Dataset</td>
+  <td class="link-cell"><span class="unavail">Not Available (no standard public repository confirmed)</span></td>
+  <td class="inst-cell">Likely Stanford or MIT; specific public dataset not confirmed</td>
+  <td class="country-cell">❓ Unknown</td>
+  <td><span class="badge badge-unknown">○ Less-Known</span></td>
+  <td class="note-cell">Si-doped graphite anodes; next-gen Li-ion; no dedicated open dataset confirmed</td>
+</tr>
+
+<tr data-country="Unknown" data-known="Less-Known" data-link="unavailable">
+  <td>49</td>
+  <td>LCO Fast-Charging Dataset</td>
+  <td class="link-cell"><span class="unavail">Not Available (not found as a distinct named open dataset)</span></td>
+  <td class="inst-cell">Unknown / Not publicly documented as a standalone dataset</td>
+  <td class="country-cell">❓ Unknown</td>
+  <td><span class="badge badge-unknown">○ Less-Known</span></td>
+  <td class="note-cell">LCO chemistry fast-charging; may refer to CALCE LCO subset or a lab-specific dataset</td>
+</tr>
+
+<tr data-country="USA" data-known="Moderate" data-link="available">
+  <td>50</td>
+  <td>Synthetic Battery Datasets (Graphite//LFP)</td>
+  <td class="link-cell"><a href="https://dx.doi.org/10.1016/j.jpowsour.2020.228806" target="_blank">HNEI/JPowerSources ↗</a></td>
+  <td class="inst-cell">Hawaii Natural Energy Institute (HNEI) — Dubarry et al.</td>
+  <td class="country-cell">🇺🇸 USA</td>
+  <td><span class="badge badge-partial">◎ Moderate</span></td>
+  <td class="note-cell">Dubarry et al. 2020; AI-generated synthetic training data; Graphite//LFP; 3 orders of magnitude larger than all prior open data</td>
+</tr>
+
+<tr data-country="Multiple" data-known="Less-Known" data-link="unavailable">
+  <td>51</td>
+  <td>Battery CT Scan Dataset</td>
+  <td class="link-cell"><span class="unavail">Not Available (no major open CT scan battery dataset confirmed)</span></td>
+  <td class="inst-cell">Possibly Oxford or Stanford; no dedicated open-access CT scan battery dataset confirmed</td>
+  <td class="country-cell">❓ Unknown</td>
+  <td><span class="badge badge-unknown">○ Less-Known</span></td>
+  <td class="note-cell">X-ray CT images of battery cells; internal structure; degradation tracking; niche dataset</td>
+</tr>
+
+<tr data-country="Multiple" data-known="Less-Known" data-link="unavailable">
+  <td>52</td>
+  <td>Ultrasonic Battery Dataset</td>
+  <td class="link-cell"><span class="unavail">Not Available (no standard named open dataset confirmed)</span></td>
+  <td class="inst-cell">Multiple possible — MIT, Stanford; no dedicated open ultrasonic battery dataset confirmed</td>
+  <td class="country-cell">❓ Unknown</td>
+  <td><span class="badge badge-unknown">○ Less-Known</span></td>
+  <td class="note-cell">Acoustic/ultrasonic signal data for non-invasive SOH estimation; emerging modality</td>
+</tr>
+
+<tr data-country="USA" data-known="Less-Known" data-link="available">
+  <td>53</td>
+  <td>Carnegie Mellon eVTOL Battery Dataset</td>
+  <td class="link-cell"><a href="https://doi.org/10.5281/zenodo.7618592" target="_blank">Zenodo ↗</a></td>
+  <td class="inst-cell">Carnegie Mellon University (CMU) — Battery &amp; Energy Systems group</td>
+  <td class="country-cell">🇺🇸 USA</td>
+  <td><span class="badge badge-unknown">○ Less-Known</span></td>
+  <td class="note-cell">Electric vertical take-off and landing (eVTOL) battery profiles; aviation-grade cycling</td>
+</tr>
+
+<tr data-country="Unknown" data-known="Less-Known" data-link="unavailable">
+  <td>54</td>
+  <td>Proprietary Lab Datasets (Various)</td>
+  <td class="link-cell"><span class="noexist">This is not a single dataset — refers to non-public lab data</span></td>
+  <td class="inst-cell">Various industry and academic labs (not publicly identified)</td>
+  <td class="country-cell">❓ Various</td>
+  <td><span class="badge badge-unknown">○ Less-Known</span></td>
+  <td class="note-cell">Catch-all term for non-open internal lab datasets; cannot be accessed publicly</td>
+</tr>
+
+<tr data-country="Multiple" data-known="Moderate" data-link="available">
+  <td>55</td>
+  <td>BetterBat Cell Database</td>
+  <td class="link-cell"><a href="https://www.betterbat.net/" target="_blank">betterbat.net ↗</a></td>
+  <td class="inst-cell">Open-source community initiative (not a single institution)</td>
+  <td class="country-cell">🌍 International</td>
+  <td><span class="badge badge-partial">◎ Moderate</span></td>
+  <td class="note-cell">300+ commercial Li-ion cells; specs: size, weight, capacity, cycle life; not raw cycling data but cell specs</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<script>
+function filterTable() {
+  const search = document.getElementById('search').value.toLowerCase();
+  const country = document.getElementById('filterCountry').value;
+  const known = document.getElementById('filterKnown').value;
+  const link = document.getElementById('filterLink').value;
+
+  const rows = document.querySelectorAll('#mainTable tbody tr');
+  let visible = 0;
+  rows.forEach(row => {
+    const name = row.cells[1].textContent.toLowerCase();
+    const rowCountry = row.getAttribute('data-country') || '';
+    const rowKnown = row.getAttribute('data-known') || '';
+    const rowLink = row.getAttribute('data-link') || '';
+
+    const matchSearch = !search || name.includes(search);
+    const matchCountry = !country || rowCountry.includes(country);
+    const matchKnown = !known || rowKnown.includes(known);
+    const matchLink = !link || rowLink === link;
+
+    if (matchSearch && matchCountry && matchKnown && matchLink) {
+      row.style.display = '';
+      visible++;
+    } else {
+      row.style.display = 'none';
+    }
+  });
+  document.getElementById('rowCount').textContent = `Showing ${visible} of 55 datasets`;
+}
+
+// Initial count
+filterTable();
+</script>
+</body>
+</html>
